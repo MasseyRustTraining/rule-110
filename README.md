@@ -10,13 +10,14 @@ thing to play with.
 
 
 A CA starts with a random row of bits. We will represent 1
-bits with `*` and 0 bits with `.`. Our starting
-row will specifically be for now.
+bits with `*` and 0 bits with `.`. Our starting row will
+specifically be this 8-bit position for now.
 
     *.*.**..
 
 To produce the next row, take bits three at a time,
-"wrapping around" if a boundary is hit.  A group of three
+"wrapping around" if a boundary is hit (row 7 is next to row
+0 and so forth).  A group of three
 bits in row *n* will determine the center bit position in
 row *n + 1* according to Rule 110:
 
@@ -36,16 +37,19 @@ So for our start, the first two rows will be
 
 (Notice the wraparound at the beginning and end.)
 
-Write a program that prints these two rows and then keeps
-going.
+Write a program that prints ten rows starting with the two
+given.
 
 ## Hints
 
-* You probably should use either `u8` or `[bool; 8]` to represent a row. 
-  The second thing is easier.
+* You could use either `u8` or `[bool; 8]` to represent a
+  row.  The second thing is easier, so I'll assume that.
 
 * If you print out as you go, you only need to keep track of
   two rows: the current row and the next row.
+
+* Arrays in Rust are first-class: you can copy-assign them,
+  pass them as function arguments, etc.
 
 * You should probably write a function `rule110()` with a
   signature something like
@@ -60,7 +64,17 @@ going.
       todo!()
   }
   ```
-  in the bit case.
+  in the bit case. The `match` statement is your friend
+  here.
+
+  You may want other functions as well.
+
+* You can't index a string in Rust, because UTF-8 encoded
+  Unicode code points are variable-width. `s.chars()` is an
+  iterator over the characters of a string.
+
+* Do *not* be afraid to ask for help. This is the hardest
+  assignment, probably, because things are new.
 
 ## Challenges
 
