@@ -40,8 +40,8 @@ fn rule_110(bits: [bool; 3]) -> bool {
 /// Produce the renderable string for the current row.
 fn row_string(cur: Row) -> String {
     let mut row = String::new();
-    for i in 0..N {
-        if cur[i] {
+    for b in cur {
+        if b {
             row += "*";
         } else {
             row += ".";
