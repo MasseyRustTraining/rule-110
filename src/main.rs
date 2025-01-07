@@ -76,4 +76,3 @@ fn main() {
         cur = next_row(cur);
     }
 }
-
