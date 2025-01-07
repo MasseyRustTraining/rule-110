@@ -27,25 +27,40 @@ fn rule_110(bits: [bool; 3]) -> bool {
     }
 }
 
+fn row_string(cur: Row) -> String {
+    let mut row = String::new();
+    for i in 0..N {
+        if cur[i] {
+            row += "*";
+        } else {
+            row += ".";
+        }
+    }
+    row
+}
+
+fn next_row(cur: Row) -> Row {
+    let mut next = [false; N];
+    for i in 0..N {
+        let bits = [cur[i], cur[(i + 1) % N], cur[(i + 2) % N]];
+        let next_bit = rule_110(bits);
+        next[(i + 1) % N] = next_bit;
+    }
+    next
+}
+
+#[test]
+fn test_second_row() {
+    let cur = make_start("*.*..*..");
+    let next = next_row(cur);
+    assert_eq!(next, make_start("***.**.*"));
+}
+
 fn main() {
     let mut cur = make_start("*.*..*..");
-    let mut next = [false; N];
     for _ in 0..10 {
-        for i in 0..N {
-            let c = if cur[i] {
-                '*'
-            } else {
-                '.'
-            };
-            print!("{}", c);
-        }
-        println!();
-
-        for i in 0..N {
-            let bits = [cur[i], cur[(i + 1) % N], cur[(i + 2) % N]];
-            let next_bit = rule_110(bits);
-            next[(i + 1) % N] = next_bit;
-        }
-        cur = next;
+        println!("{}", row_string(cur));
+        cur = next_row(cur);
     }
 }
+
