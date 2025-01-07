@@ -1,6 +1,15 @@
+//! Rule 118 CA — Bart Massey 2025
+//!
+//! Solution to <https://github.com/MasseyRustTraining/rule-110>.
+
+/// Row width.
 const N: usize = 8;
+
+/// A row is an array of bits.
 type Row = [bool; N];
 
+/// Given a starting row description string, make and return
+/// the corresponding row.
 fn make_start(row: &str) -> Row {
     let row = row.as_bytes();
     let mut bits = [false; N];
@@ -14,6 +23,7 @@ fn make_start(row: &str) -> Row {
     bits
 }
 
+/// CA Rule 110. <https://en.wikipedia.org/wiki/Rule_110>
 fn rule_110(bits: [bool; 3]) -> bool {
     match bits {
         [true, true, true] => false,
@@ -27,6 +37,7 @@ fn rule_110(bits: [bool; 3]) -> bool {
     }
 }
 
+/// Produce the renderable string for the current row.
 fn row_string(cur: Row) -> String {
     let mut row = String::new();
     for i in 0..N {
@@ -39,6 +50,7 @@ fn row_string(cur: Row) -> String {
     row
 }
 
+/// Use CA Rule 110 to make a new row.
 fn next_row(cur: Row) -> Row {
     let mut next = [false; N];
     for i in 0..N {
@@ -56,6 +68,7 @@ fn test_second_row() {
     assert_eq!(next, make_start("***.**.*"));
 }
 
+/// Make the first 10 rows of the required output.
 fn main() {
     let mut cur = make_start("*.*..*..");
     for _ in 0..10 {
