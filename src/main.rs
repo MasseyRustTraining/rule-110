@@ -11,12 +11,11 @@ type Row = [bool; N];
 /// Given a starting row description string, make and return
 /// the corresponding row.
 fn make_start(row: &str) -> Row {
-    let row = row.as_bytes();
-    let mut bits = [false; N];
-    for i in 0..N {
-        match row[i] {
-            b'*' => bits[i] = true,
-            b'.' => bits[i] = false,
+    let mut bits = Row::default();
+    for (i, c) in row.chars().enumerate() {
+        match c {
+            '*' => bits[i] = true,
+            '.' => bits[i] = false,
             _ => panic!("bad char {}", bits[i]),
         }
     }
@@ -39,15 +38,7 @@ fn rule_110(bits: [bool; 3]) -> bool {
 
 /// Produce the renderable string for the current row.
 fn row_string(cur: Row) -> String {
-    let mut row = String::new();
-    for b in cur {
-        if b {
-            row += "*";
-        } else {
-            row += ".";
-        }
-    }
-    row
+    cur.into_iter().map(|b| if b { '*' } else { '.' }).collect()
 }
 
 /// Use CA Rule 110 to make a new row.
