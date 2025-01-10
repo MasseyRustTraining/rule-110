@@ -11,6 +11,9 @@ type Row = [bool; N];
 /// Given a starting row description string, make and return
 /// the corresponding row.
 fn make_start(row: &str) -> Row {
+    if row.chars().count() != N {
+        panic!("make_start: string length not equal to {}", N);
+    }
     let mut bits = Row::default();
     for (i, c) in row.chars().enumerate() {
         match c {
@@ -61,8 +64,11 @@ fn test_second_row() {
 
 /// Make the first 10 rows of the required output.
 fn main() {
-    let mut cur = make_start("*.*..*..");
-    for _ in 0..10 {
+    let args: Vec<String> = std::env::args().collect();
+    let nrows: usize = args[1].parse().unwrap();
+    let row0 = &args[2];
+    let mut cur = make_start(row0);
+    for _ in 0..nrows {
         println!("{}", row_string(cur));
         cur = next_row(cur);
     }
