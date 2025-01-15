@@ -65,8 +65,16 @@ fn test_second_row() {
 /// Make the first 10 rows of the required output.
 fn main() {
     let args: Vec<String> = std::env::args().collect();
-    let nrows: usize = args[1].parse().unwrap();
-    let row0 = &args[2];
+    let nrows: usize = if args.len() > 1 {
+        args[1].parse().unwrap()
+    } else {
+        10
+    };
+    let row0 = if args.len() > 2 {
+        &args[2]
+    } else {
+        "*.*..*.."
+    };
     let mut cur = make_start(row0);
     for _ in 0..nrows {
         println!("{}", row_string(cur));
