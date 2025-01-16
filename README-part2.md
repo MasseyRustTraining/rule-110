@@ -21,6 +21,12 @@ a library with a sample application.
   Hide things that should be private. Use modules as needed
   to isolate code.
 
+Both library and demo code should have Rustdoc comments,
+be formatted according to Rustfmt standards, and build
+without compiler or Clippy warnings.
+
+## Bonus
+
 * The demo application, in `examples/rule110.rs`, should
   accept at least a command-line argument for the number of
   rows to be printed. If you allow arbitrary input, that
@@ -29,11 +35,6 @@ a library with a sample application.
   Use `[dev-dependencies]` in `Cargo.toml` for dependencies
   needed by the demo application but not the library.
 
-Both library and demo code should have Rustdoc comments,
-be formatted according to Rustfmt standards, and build
-without compiler or Clippy warnings.
-
-## Bonus
-
-Remove the dependency on Rule 110. Allow the user to specify
-an arbitrary CA rule for both the program and the library.
+* Remove the dependency on Rule 110. Allow the user to
+  specify an arbitrary CA rule for both the program and the
+  library.
